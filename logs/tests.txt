@@ -1,0 +1,14 @@
+test_certificate_tampering_rejected (__main__.Tests.test_certificate_tampering_rejected) ... ok
+test_complementary_pair (__main__.Tests.test_complementary_pair) ... ok
+test_hole_opposite_selected_pair_identifies (__main__.Tests.test_hole_opposite_selected_pair_identifies) ... ok
+test_hole_opposite_unselected_pair_orthogonal (__main__.Tests.test_hole_opposite_unselected_pair_orthogonal) ... ok
+test_invalid_labels_and_C4 (__main__.Tests.test_invalid_labels_and_C4) ... ok
+test_labels_not_initial_equivalence (__main__.Tests.test_labels_not_initial_equivalence) ... ok
+test_line_pair (__main__.Tests.test_line_pair) ... ok
+test_random_reference (__main__.Tests.test_random_reference) ... ok
+test_three_printed_grids_reference (__main__.Tests.test_three_printed_grids_reference) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 2.886s
+
+OK

@@ -1,0 +1,40 @@
+{
+  "m": 190,
+  "n": 20,
+  "E1": 380,
+  "E2": 1710,
+  "H": 0,
+  "R": 2090,
+  "Z": 2090,
+  "limited": true,
+  "status": "VERIFIED",
+  "all_pairs_identified": true,
+  "selected_classes_distinct": true,
+  "occupied_equivalence_classes": 2090,
+  "identifications": 1710,
+  "orthogonality_pairs": 2183005,
+  "unresolved_pairs": 0,
+  "unresolved_sample_edge_ids_0based": [],
+  "unresolved_pair_labels": [],
+  "identification_rules": {
+    "line": 22,
+    "complementary": 1200,
+    "zero_companion": 0,
+    "transfer": 488
+  },
+  "iterations": 16,
+  "orthogonality_cell_facts_by_rule": {
+    "line": 395178,
+    "complementary": 0,
+    "zero_companion": 0,
+    "saturation": 4072812,
+    "transfer": 2748400
+  },
+  "orthogonality_cell_facts": 7216390,
+  "hole_rectangles": 0,
+  "holes_enabled": true,
+  "conflict": false,
+  "seconds": 1.073420791999979,
+  "file": "19020.csv",
+  "sha256": "749fd79aa1676ba237295446109ff0e638c786f283c116af949db2a68e087c79"
+}

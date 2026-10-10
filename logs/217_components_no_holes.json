@@ -1,0 +1,14 @@
+{
+  "variables": 4371,
+  "components": 322,
+  "grounded_components": 306,
+  "ungrounded_components": 16,
+  "ungrounded_size_histogram": {
+    "1": 12,
+    "2": 3,
+    "3": 1
+  },
+  "ungrounded_variables": 21,
+  "holes_enabled": false,
+  "components_with_direct_hole_ground": 0
+}

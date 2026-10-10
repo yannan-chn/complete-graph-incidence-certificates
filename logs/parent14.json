@@ -1,0 +1,32 @@
+{
+  "m": 91,
+  "n": 14,
+  "E1": 182,
+  "E2": 546,
+  "H": 0,
+  "R": 728,
+  "Z": 728,
+  "limited": true,
+  "status": "VERIFIED",
+  "all_pairs_identified": true,
+  "selected_classes_distinct": true,
+  "occupied_equivalence_classes": 728,
+  "identifications": 546,
+  "orthogonality_pairs": 264628,
+  "unresolved_pairs": 0,
+  "unresolved_sample_edge_ids_0based": [],
+  "unresolved_pair_labels": [],
+  "identification_rules": {
+    "line": 0,
+    "complementary": 546,
+    "zero_companion": 0,
+    "transfer": 0
+  },
+  "iterations": 7,
+  "hole_rectangles": 0,
+  "holes_enabled": true,
+  "conflict": false,
+  "seconds": 0.07371005100003458,
+  "file": "parent14.csv",
+  "sha256": "ebc1b11d48ecb22d2f8795253092a3ff891eb2abdbaecc184f72f4810bef492e"
+}

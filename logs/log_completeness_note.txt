@@ -1,0 +1,6 @@
+The two incomplete_original_* logs preserve partial earlier runs.
+The final complete 7813_search.jsonl and 6612_search.jsonl were obtained
+by serial replay of the same deterministic search. Their successful
+attempts are 67 and 244 (zero-based), and their output CSV SHA-256
+digests match the already independently verified grids.
+The recorded durations for these two cases refer to that final replay.

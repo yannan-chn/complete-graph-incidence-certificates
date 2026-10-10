@@ -1,0 +1,12 @@
+{"seed": 20261010, "attempts": 600, "budget_seconds": 180.0, "target_n": 16, "keep_vertices_0based": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], "inherited": 528, "orphans": 624, "break_pairs": 0}
+{"attempt": 0, "score": [4, 61], "status": "UNVERIFIED", "elapsed": 0.2719618470000569, "closure_seconds": 0.26593790999993416}
+{"attempt": 1, "score": [3, 48], "status": "UNVERIFIED", "elapsed": 0.5551657380000279, "closure_seconds": 0.276857555000106}
+{"attempt": 2, "score": [3, 48], "status": "UNVERIFIED", "elapsed": 0.8214713030000667, "closure_seconds": 0.2616054459999759}
+{"attempt": 3, "score": [2, 41], "status": "UNVERIFIED", "elapsed": 1.1052399270000706, "closure_seconds": 0.27783443199996327}
+{"attempt": 4, "score": [1, 32], "status": "UNVERIFIED", "elapsed": 1.3732501509999793, "closure_seconds": 0.263176465000015}
+{"attempt": 5, "score": [0, 23], "status": "UNVERIFIED", "elapsed": 1.649963099000047, "closure_seconds": 0.2700678969999899}
+{"attempt": 6, "score": [0, 20], "status": "UNVERIFIED", "elapsed": 1.9078284170000188, "closure_seconds": 0.2518148399999518}
+{"attempt": 7, "score": [0, 12], "status": "UNVERIFIED", "elapsed": 2.141398902999981, "closure_seconds": 0.22867814699998235}
+{"attempt": 8, "score": [0, 9], "status": "UNVERIFIED", "elapsed": 2.3837556880000648, "closure_seconds": 0.23769458499998564}
+{"attempt": 9, "score": [0, 3], "status": "UNVERIFIED", "elapsed": 2.6644878120000612, "closure_seconds": 0.2757798439999988}
+{"attempt": 10, "score": [0, 0], "status": "VERIFIED", "elapsed": 2.9319625670000278, "closure_seconds": 0.2626581010000564}
