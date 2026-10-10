@@ -1,0 +1,333 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\newcommand{\RW}{\mathrm{RW3}^{+}}
+\newcommand{\Eone}{E_1}
+\newcommand{\Etwo}{E_2}
+\title{Independent Reconstruction and Exact Certificates\\for Ten Complete-Graph Incidence Configurations}
+\author{Technical report accompanying the reproducible data package}
+\date{10 October 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+All ten requested incidence-family configurations have been reconstructed and
+actually certified by the five unsigned recursive-line rules in the supplied
+manuscript. Three grids are transcriptions of its fully printed tables; the
+other seven are independently generated replacement witnesses. Every grid
+attains the cell bound, every selected pair is identified, and every distinct
+selected-edge class pair is certified orthogonal. This report specifies the
+mathematical rules, implementation, finite proof format, validation tests,
+search provenance and reproducibility commands. No unavailable original data
+or reported replay count is treated as a program result.
+\end{abstract}
+
+\section{Outcome and the available source evidence}
+The input is the 10 October 2026 version of \emph{Exact Second-Order Zarankiewicz
+Numbers for Complete-Graph Incidence Families} \cite{manuscript}, together with
+the coauthor review note dated 9 October 2026 \cite{note}. Sections 2.2--2.5 and
+Proposition 5.1 provide a precise certificate specification. Appendix A
+specifies the original CSV convention: blank for a singleton, a positive label
+occurring twice for a pair, and a full stop for a hole. Tables 8--10 in
+Appendices B--D print all cells at $n=9,8,7$ respectively.
+
+The seven larger appendices give counts and provenance, but not the endpoints
+of their repaired pairs. The supplied attachments contain neither the ten
+original CSV files nor the referenced checker. Counts alone do not determine
+those missing pairings. Therefore the seven larger files in this package are
+new witnesses, not claimed recovered originals. Their rule diagnostics and
+restriction counts need not equal those in Tables 1 and 7 of the manuscript.
+
+For each $n\in\{7,8,9,12,13,16,17,18,20,21\}$, the actual certificate establishes
+\[
+ R(G)=Z(n)=\left\lfloor\frac{n(n-1)(n+2)}4\right\rfloor,
+ \qquad G\text{ satisfies }(\RW).
+\]
+Using the hierarchy and cell bound stated in the supplied manuscript, this
+gives $z_2=z_{SL}=z_{RL}=Z(n)$ at these ten incidence dimensions. It does not
+settle any other order or any different seven-column table dimension.
+
+\newpage
+\section{Mathematical specification and five sound rules}
+Put $m=\binom n2$, $u_{ij}=x_i y_j$, and let the singleton set be exactly the
+incidence matrix of $K_n$. Simplicity means that every occupied cell belongs
+to exactly one selected singleton or selected pair. Write $\Omega$ for the
+occupied cells and $\delta(p,q)=1$ precisely when the distinct cells $p,q$
+form a selected pair; otherwise $\delta(p,q)=0$.
+
+For any alternative real SOS representation, let $v_p$ be the coefficient
+vector of cell $p$. Coefficient comparison yields
+\begin{align*}
+ \|v_p\|^2&=\mathbf 1_\Omega(p),\\
+ \langle v_p,v_q\rangle&=\delta(p,q)
+       &&\text{for distinct cells on a common row or column},\\
+ \langle v_p,v_q\rangle+\langle v_r,v_s\rangle
+       &=\delta(p,q)+\delta(r,s)
+       &&\text{for the diagonals of a genuine rectangle}.
+\end{align*}
+Thus occupied vectors are unit vectors and hole vectors vanish. The following
+are the only allowed inference rules in the checker.
+\begin{enumerate}
+\item \textbf{Line.} Certify the prescribed value of each occupied common-line
+pair: identify its ends when $\delta=1$, and declare them orthogonal when
+$\delta=0$.
+\item \textbf{Saturation.} Propagate an orthogonality fact to equivalent
+representatives. Equivalence is stored independently of orthogonality.
+\item \textbf{Rectangle transfer.} If one diagonal has been certified at its
+own prescribed value, certify the other at its own prescribed value. Only
+distinct rows and distinct columns form a genuine rectangle.
+\item \textbf{Complementary pair.} If both diagonals are selected pairs,
+identify the two ends of each. Their inner products sum to 2 and each is at
+most 1, so both equal 1.
+\item \textbf{Zero companion.} If a diagonal contains a hole, its inner
+product and its prescribed value both vanish. Certify the opposite diagonal
+at its own prescribed value. In particular, a selected opposite pair is
+identified, not declared orthogonal.
+\end{enumerate}
+Printed equal labels are never used as initial equivalences. No inference
+from an ungrounded signed odd cycle is admitted.
+
+The terminal conditions are: both ends of every selected pair are identified;
+distinct selected edges remain in distinct equivalence classes; and all
+distinct selected-edge classes are pairwise orthogonal. They force $R(G)$
+orthogonal unit vectors in every SOS representation, hence
+$\operatorname{SOS}(P_G)\ge R(G)$. The displayed SOS gives the reverse inequality.
+The singleton graph is $C_4$-free and has $2m=z(m,n)$, since a $C_4$-free
+matrix with row degrees $r_i$ satisfies
+\[
+ \sum_i\binom{r_i}{2}\le\binom n2=m,\qquad
+ \sum_i r_i\le m+\binom n2=2m.
+\]
+Simplicity then gives $R(G)\le\lfloor(mn+2m)/2\rfloor=Z(n)$. Attainment and
+the finite certificate suffice; no exhaustive exclusion is needed.
+
+\newpage
+\section{Exact implementation and independently checked finite proofs}
+The CSV audit checks shape, tokens, multiplicities, contiguous labels,
+singleton row positions and $C_4$-freeness. Blank fields are singleton cells,
+not missing values. Rows have no header and follow the lexicographic order
+of edges $\{a,b\}$, $1\le a<b\le n$. Holes are excluded from the occupied
+equivalence structure.
+
+The main checker uses Union-Find for identifications and a separate Boolean
+matrix for cell orthogonality. Under these rules every nontrivial equivalence
+class has at most two cells: every equality conclusion has prescribed value 1,
+which occurs only for a selected pair. Saturation propagates orthogonality
+over both representatives, then rectangle transfer supplies new orthogonality
+facts and new identifications. Initialization applies the line and
+complementary rules and, when enabled, the zero-companion rule. Iteration
+continues until neither store changes. All computations are exact Boolean
+or integer operations; no numerical tolerance or floating-point linear
+algebra enters acceptance.
+
+For $N=mn$, one dense closure round costs $\mathcal O(N^2)$ operations and
+the working stores cost $\mathcal O(N^2)$ memory. A proof with $L$ rounds
+stores $\mathcal O(LN^2)$ bits before compression. This implementation
+prioritizes transparent exact verification over asymptotic scalability.
+
+Each \texttt{logs/*\_certificate.npz} is a finite synchronous proof: initial
+equality and orthogonality, the zero-companion stage, and the packed
+orthogonality matrix and newly identified pair indices at each subsequent
+round. Identifications use zero-based CSV-label indices. Boolean matrices
+use row-major order and NumPy's default big-endian bit packing.
+
+\texttt{verify\_certificate.py} does not invoke the closure routine. It
+independently enumerates row-pair and column-pair rectangle diagonals,
+checks initialization, verifies each round using only its legal premises,
+rejects missing or extra inferred facts, checks contradictions and finally
+tests all terminal conditions. This proof does not rely on trusting a
+claimed terminal count. File hashes bind the distributed proof and input
+to the package manifest.
+
+\texttt{reference\_checker.py} is a slow set-based implementation with a
+different update order and explicit rectangle loops. It agrees with the full
+cell-level equality and orthogonality stores on all three printed grids.
+Nine tests passed, including 80 seeded random small grids, each with the
+hole rule enabled and disabled; selected and unselected opposite diagonals;
+line and complementary identifications; malformed labels and a $C_4$;
+and rejection of a tampered finite certificate.
+
+All ten saved proofs passed independent verification. All seven searched
+grids were also regenerated in a fresh directory and reproduced byte for
+byte. The three printed grids were re-extracted from the source PDF and
+likewise reproduced byte for byte.
+
+\newpage
+\section{Deterministic generators and sequential repair}
+For $q=7,11$, the parent vertices are two copies of $\mathbb Z_q$, with
+vertices $a$ and $a+q$. The explicitly implemented matchings are
+\begin{align*}
+ A_a={}&\{\{a,a+q\}\}\cup
+ \bigcup_{t=1}^{(q-1)/2}
+ \{\{a+t,a-t\},\{a+t+q,a-t+q\}\},\\
+ B_t={}&\{\{a,a+t+q\}:a\in\mathbb Z_q\},\quad 1\le t<q,
+\end{align*}
+where arithmetic within either copy is modulo $q$. The order of inner
+labels is the anchor, then the two reflection edges at $t=1,2,\ldots$;
+the $B_t$ edges are ordered by $a=0,1,\ldots,q-1$.
+
+For $q=9$, the implemented parent uses the cyclic factorization on
+$\mathbb Z_{17}\cup\{17\}$:
+\[
+ F_a=\{\{a,17\}\}\cup\{\{a+t,a-t\}:1\le t\le8\},\quad a\in\mathbb Z_{17}.
+\]
+Its inner labels are in the displayed order. For each factor, each anchor
+edge with inner label $b$ and endpoints $u,v$, and each
+$1\le x\le(q-1)/2$, the rows indexed by inner labels $b+x$ and $b-x$
+are paired on columns $u,v$ along both complementary diagonals. This uses
+each non-incidence cell exactly once.
+
+The generated $q=7$ and $q=11$ parents pass the exact closure. The cyclic
+$q=9$ parent fails the ordinary criterion and leaves exactly 7,344
+selected-edge pairs uncertified, reproducing the manuscript's parent
+diagnostic. A preliminary bipyramidal composite-$q$ attempt instead left
+163,755 pairs uncertified; its failed input and log are retained separately.
+It is not the cyclic parent used for the successful $n=16,17$ witnesses.
+
+Repair keeps the vertices $0,\ldots,n-1$, deletes all other vertex columns
+and incident edge rows, retains complete surviving pairs, and collects the
+orphaned cells. The cells are paired using seed 20261010. The search first
+minimizes the number of unidentified pairs, then the number of uncertified
+selected-edge class pairs. It switches endpoints among two to four pairs,
+with a fresh random proposal every twentieth attempted iteration. The
+targeted variant selects an endpoint involved in a current unresolved
+relation and permits neutral moves. The earlier basic variant, used at
+$n=13,12$, uses strict improvements and untargeted switches.
+
+The order was $7,8,9$ (printed), then $13,12,16,17,18,20,21$ (searched).
+The $n=12$ repair uses the newly found $n=13$ parent. No surviving inherited
+pair was deliberately broken in the seven successful replacement searches.
+The $n=18$ deletion keeps 552 pairs and frees 1,344 cells; these differ from
+the manuscript's 560 and 1,328 because the independently specified parent
+and deleted set are not asserted to be its unpublished choice.
+
+\newpage
+\section{Actual verification results}
+\begin{center}
+\begin{tabular}{rrrrrrr}
+\toprule
+$n$ & $m$ & $|E_1|$ & $|E_2|$ & $H$ & $R=Z(n)$ & orthogonal class pairs\\
+\midrule
+7 & 21 & 42 & 52 & 1 & 94 & 4,371 \\
+8 & 28 & 56 & 84 & 0 & 140 & 9,730 \\
+9 & 36 & 72 & 126 & 0 & 198 & 19,503 \\
+12 & 66 & 132 & 330 & 0 & 462 & 106,491 \\
+13 & 78 & 156 & 429 & 0 & 585 & 170,820 \\
+16 & 120 & 240 & 840 & 0 & 1080 & 582,660 \\
+17 & 136 & 272 & 1020 & 0 & 1292 & 833,986 \\
+18 & 153 & 306 & 1224 & 0 & 1530 & 1,169,685 \\
+20 & 190 & 380 & 1710 & 0 & 2090 & 2,183,005 \\
+21 & 210 & 420 & 1995 & 0 & 2415 & 2,914,905 \\
+\bottomrule
+\end{tabular}
+\end{center}
+Every row has status \texttt{VERIFIED}, exactly $R$ occupied equivalence
+classes, exactly $|E_2|$ identifications, zero uncertified class pairs, and
+no equality/orthogonality conflict. Counts are computed from the CSV
+inputs, not inserted from a source table.
+
+\begin{center}
+\begin{tabular}{rrrrrrr}
+\toprule
+$n$ & line & complementary & zero & transfer & rounds & seconds\\
+\midrule
+7 & 11 & 6 & 0 & 35 & 41 & 0.0083 \\
+8 & 26 & 24 & 0 & 34 & 39 & 0.0135 \\
+9 & 51 & 72 & 0 & 3 & 12 & 0.0090 \\
+12 & 17 & 168 & 0 & 145 & 28 & 0.0835 \\
+13 & 8 & 312 & 0 & 109 & 16 & 0.0702 \\
+16 & 17 & 528 & 0 & 295 & 18 & 0.2729 \\
+17 & 14 & 816 & 0 & 190 & 14 & 0.3367 \\
+18 & 34 & 552 & 0 & 638 & 34 & 1.0460 \\
+20 & 22 & 1200 & 0 & 488 & 16 & 1.0734 \\
+21 & 8 & 1680 & 0 & 307 & 14 & 1.4788 \\
+\bottomrule
+\end{tabular}
+\end{center}
+Rule counts here count selected-pair identifications, in the stated
+initialization order. They reproduce the manuscript's counts at $n=7,8,9$.
+The seven replacement witnesses have their own diagnostics. Closure times
+exclude compression and independent proof verification and are observations
+from this run, not performance guarantees. The JSON logs additionally give
+new unordered cell orthogonality facts by rule, including saturation.
+
+At $n=7$, the hole is the cell in row $\{2,7\}$ and column 4. There are
+120 genuine rectangles containing it. With the rule disabled, every selected
+pair is still identified but only 4,350 of 4,371 class pairs are certified.
+The quotient transfer graph has 322 components: 16 are ungrounded, with
+sizes twelve 1's, three 2's and one 3. Enabling the hole rule grounds those
+16 components and certifies the remaining 21 variables. These diagnostics
+were recomputed, not copied from Appendix D.
+
+\newpage
+\section{Search records, replay and scope}
+\begingroup\small
+\begin{center}
+\begin{tabular}{rrrrr}
+\toprule
+$n$ & inherited pairs & free cells & success attempt (one-based) & search seconds\\
+\midrule
+12 & 236 & 188 & 245 & 21.45 \\
+13 & 312 & 234 & 68 & 5.44 \\
+16 & 528 & 624 & 11 & 2.93 \\
+17 & 816 & 408 & 8 & 2.67 \\
+18 & 552 & 1344 & 26 & 24.70 \\
+20 & 1200 & 1020 & 16 & 15.85 \\
+21 & 1680 & 630 & 11 & 15.77 \\
+\bottomrule
+\end{tabular}
+\end{center}
+The detailed JSONL files preserve seed, parameters, each evaluated score
+and measured elapsed time. A skipped targeted proposal need not produce a
+score record. The attempt index records the actual loop index. Original
+searches had a 180-second budget and stopped upon acceptance. Deterministic
+regeneration disables that time cutoff while retaining the recorded attempt
+cap, so differing processor speeds do not alter the intended search prefix.
+
+From the extracted package root, the essential replay commands are
+\begin{verbatim}
+python -m pip install -r ancillary/requirements.txt
+python ancillary/validate_all.py
+python ancillary/test_checker.py
+python ancillary/regenerate_all.py ../fresh_reconstruction
+\end{verbatim}
+For an individual case, for example $n=7$:
+\begin{verbatim}
+python ancillary/certificate_checker.py ancillary/217.csv
+python ancillary/verify_certificate.py ancillary/217.csv \
+    logs/217_certificate.npz
+\end{verbatim}
+The environment used was Python 3.12.14 with NumPy 2.3.5. The core
+checker, proof verifier and reconstruction require only Python and NumPy.
+Poppler is optional for repeating PDF extraction; a LaTeX installation is
+optional for rebuilding this report.
+
+The package contains all ten CSV grids, the checker and independent proof
+verifier, the slow reference implementation, tests, generator and regeneration
+script, ten finite NPZ certificates, actual run logs, the verification
+summary, provenance, requirements and SHA-256 manifest. The CSV checksums,
+per-sheet commands and expected outputs are indexed in
+\texttt{ancillary/README.md}. This report's source and compiled PDF are included.
+
+These finite witnesses establish the ten stated incidence dimensions under
+the supplied mathematical framework. They do not reconstruct the missing
+original larger sheets, reproduce their particular local-search histories,
+verify the eight different seven-column entries $9\le m\le16$, or establish
+the bounded-gap conjecture in general. The seven replacement witnesses
+require corresponding changes to the manuscript's construction provenance
+and replay tables. In particular, source Table 1 is not a checksum or a
+complete construction recipe. For a public paper, this actual replacement
+package should be deposited at an immutable archive and cited as a new
+version; an archive location has not been invented here.
+
+\begin{thebibliography}{2}
+\bibitem{manuscript} Y.~Chen, J.~L\"ofberg and L.~Qi,
+\emph{Exact Second-Order Zarankiewicz Numbers for Complete-Graph Incidence
+Families}, supplied manuscript, 10 October 2026, file \texttt{more(5).pdf}.
+\bibitem{note} \emph{Changes needed in more\_8.tex}, notes for the coauthors,
+9 October 2026, supplied file \texttt{more\_8\_review\_note.pdf}.
+\end{thebibliography}
+\endgroup
+\end{document}

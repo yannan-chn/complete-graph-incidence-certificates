@@ -1,0 +1,116 @@
+{
+  "package_version": "1.0.0-2026-10-10",
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "sources": [
+    {
+      "file": "more(5).pdf",
+      "sha256": "8859026454e84088cb16f1d88d257dc2e0db9c31e1844b480637b5b16e97d62b"
+    },
+    {
+      "file": "more_8_review_note.pdf",
+      "sha256": "b3637c7b53f4dd6b6bb30a41e250cd9f83179de35f5c3a94bb50c402aaa8c224"
+    }
+  ],
+  "instances": [
+    {
+      "file": "217.csv",
+      "source": "PDF Table 10"
+    },
+    {
+      "file": "288.csv",
+      "source": "PDF Table 9"
+    },
+    {
+      "file": "369.csv",
+      "source": "PDF Table 8"
+    },
+    {
+      "file": "6612.csv",
+      "source": "independent seeded reconstruction",
+      "seed": 20261010,
+      "strategy": "basic",
+      "successful_attempt_0based": 244,
+      "search_seconds": 21.448830453000028,
+      "parent": "7813.csv",
+      "inherited": 236,
+      "orphans": 188,
+      "break_pairs": 0,
+      "search_run_note": "Complete final serial replay; incomplete earlier log retained separately"
+    },
+    {
+      "file": "7813.csv",
+      "source": "independent seeded reconstruction",
+      "seed": 20261010,
+      "strategy": "basic",
+      "successful_attempt_0based": 67,
+      "search_seconds": 5.441335987999992,
+      "parent": "nested q=7",
+      "inherited": 312,
+      "orphans": 234,
+      "break_pairs": 0,
+      "search_run_note": "Complete final serial replay; incomplete earlier log retained separately"
+    },
+    {
+      "file": "12016.csv",
+      "source": "independent seeded reconstruction",
+      "seed": 20261010,
+      "strategy": "targeted",
+      "successful_attempt_0based": 10,
+      "search_seconds": 2.9319625670000278,
+      "parent": "nested q=9",
+      "inherited": 528,
+      "orphans": 624,
+      "break_pairs": 0
+    },
+    {
+      "file": "13617.csv",
+      "source": "independent seeded reconstruction",
+      "seed": 20261010,
+      "strategy": "targeted",
+      "successful_attempt_0based": 7,
+      "search_seconds": 2.6724387660000275,
+      "parent": "nested q=9",
+      "inherited": 816,
+      "orphans": 408,
+      "break_pairs": 0
+    },
+    {
+      "file": "15318.csv",
+      "source": "independent seeded reconstruction",
+      "seed": 20261010,
+      "strategy": "targeted",
+      "successful_attempt_0based": 25,
+      "search_seconds": 24.703472115999944,
+      "parent": "nested q=11",
+      "inherited": 552,
+      "orphans": 1344,
+      "break_pairs": 0
+    },
+    {
+      "file": "19020.csv",
+      "source": "independent seeded reconstruction",
+      "seed": 20261010,
+      "strategy": "targeted",
+      "successful_attempt_0based": 15,
+      "search_seconds": 15.848703984000053,
+      "parent": "nested q=11",
+      "inherited": 1200,
+      "orphans": 1020,
+      "break_pairs": 0
+    },
+    {
+      "file": "21021.csv",
+      "source": "independent seeded reconstruction",
+      "seed": 20261010,
+      "strategy": "targeted",
+      "successful_attempt_0based": 10,
+      "search_seconds": 15.770376132000024,
+      "parent": "nested q=11",
+      "inherited": 1680,
+      "orphans": 630,
+      "break_pairs": 0
+    }
+  ]
+}
